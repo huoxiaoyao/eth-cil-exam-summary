@@ -22,6 +22,10 @@ $\|\mathbf{M}\|_F =\allowbreak \sqrt{\sum_{i=1}^{m} \sum_{j=1}^{n}\mathbf{m}_{i,
 $\|\mathbf{M}\|_1 = \sum_{i,j} | m_{i,j}|$ \qquad $\|\mathbf{M}\|_2 = \sigma_{\text{max}}(\mathbf{M})$\\
 $\|\mathbf{M}\|_p = \max_{\mathbf{v} \neq 0} \frac{\|\mathbf{M}\mathbf{v}\|_p}{\|\mathbf{v}\|_p}$ \qquad $\|\mathbf{M}\|_\star = \sum_{i=1}^{\min(m, n)} \sigma_i$
 
+\subsection*{Trace}
+$tr(A) = \sum_{i=1}^{N}a_{ii}$ \qquad $tr(A+B) = tr(A) + tr(B)$ \qquad $tr(\alpha A) = \alpha tr(A)$ \qquad $tr(A) = tr(A^\top)$
+\qquad $tr(X^\top Y) = tr(XY^\top) = tr(Y^\top X) = tr(YX^\top) = \sum_{i,j}X_{ij}Y_{ij}$ \qquad $tr(ABC) = tr(CAB) \neq tr(ACB)$
+
 \subsection*{Derivatives}
 $\frac{\partial}{\partial \mathbf{x}}(\mathbf{b}^\top \mathbf{x}) = \frac{\partial}{\partial \mathbf{x}}(\mathbf{x}^\top \mathbf{b}) = \mathbf{b}$ \quad
 $\frac{\partial}{\partial \mathbf{x}}(\mathbf{x}^\top \mathbf{x}) = 2\mathbf{x}$\\
