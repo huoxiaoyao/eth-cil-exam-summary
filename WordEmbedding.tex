@@ -18,12 +18,9 @@ opt sol: $<x_i,j_i>^* = h_{i,j}^* = \log{\frac{P(w_i,w_j}{P_n(w_i,w_j)}} + log{\
 \textbf{Co-occurence Matrix:}\\
 $\mathbf{N} = (n_{ij}) \in \mathbb{R}^{|V|\times|C|} = \# of word w_i$ in context $w_j$\\
 \textbf{Objective:} $H(\theta;\mathbf{N})$\\
-$= \sum_{n_{ij} > 0} f(n_{ij})(\log n_{ij} - \log \exp[\langle \mathbf{x}_i, \mathbf{y}_j \rangle + b_i + d_j])^2$\\
+$= \sum_{n_{ij} > 0} f(n_{ij})(\log n_{ij} - \tilde{p}_\theta(w_i | w_j))^2$\\
 with $f(n) = \min\{1, (\frac{n}{n_{max}})^\alpha\}$, $\alpha \in (0;1]$.\\
-unnormalized distr. $\rightarrow$ 2-sided loss function\\
+$\tilde{p}_\theta(w_i | w_j) = \log \exp[\langle \mathbf{x}_i, \mathbf{y}_j \rangle + b_i + d_j]$ unnormalized distr. $\rightarrow$ 2-sided loss function. If $f=1$ matrix fact prob\\
 1. sample $(i,j) u.a.r, s.t. n_{ij}>0$\\
 2. $\mathbf{x}_i^{new} \leftarrow \mathbf{x}_i + 2\eta f(n_{ij})(\log n_{ij} - \langle \mathbf{x}_i, \mathbf{y}_j \rangle)\mathbf{y}_j$\\
 3. $\mathbf{y}_j^{new} \leftarrow \mathbf{y}_j + 2\eta f(n_{ij})(\log n_{ij} - \langle \mathbf{x}_i, \mathbf{y}_j \rangle)\mathbf{x}_i$
-
-\subsection*{Discussion}
-Word embeddings can model analogies and relatedness, but antonyms are usually not well captured.
