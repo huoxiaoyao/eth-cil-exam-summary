@@ -1,13 +1,10 @@
 % !TEX root = Main.tex
 \section{Optimization}
 
-\textbf{TODO: Verify for completion (e.g. extend Lagrangian, nuclear norm (convex opt))} % TODO
-
 \subsection*{Alternating Least Squares}
+Want $min_\mathbf{B}\|\mathbf{A} - \mathbf{B}\|^2_2 $ s.t. $rank(\mathbf{B}) < k$: $\mathbf{B}=\mathbf{UV}$, $\mathbf{B} \in \mathbb{R}^MxN$, $\mathbf{U} \in \mathbb{R}^MxK$, $\mathbf{V} \in \mathbb{R}^KxN$. $I$ set of observed values in $\mathbf{A}$\\
 $f(U,v_i)=\sum_{(i,j)\in I} (a_{i,j} - \langle u_j, v_i \rangle)^2$\\
 $f(u_i,V)=\sum_{(i,j)\in I} (a_{i,j} - \langle u_j, v_i \rangle)^2$\\
-Least squares problems which are convex.
-
 
 % \subsection*{Coordinate Descent}
 % 1. init: $\mathbf{x}^{(0)} \in \mathbb{R}^D$\\
@@ -15,6 +12,10 @@ Least squares problems which are convex.
 % 3. sample $d \in_{u.a.r.} \{1, \ldots, D\}$\\
 % 4. $u^\star = \argmin_{u \in \mathbb{R}} f(x_1^{(t)}, .., x_{d-1}^{(t)}, u, x_{d+1}^{(t)}, .., x_D^{(t)})$\\
 % 5. $\mathbf{x}_d^{(t+1)} = u^\star$ and $\mathbf{x}_i^{(t+1)} = \mathbf{x}_i^{(t)}$ for $i \neq d$
+
+\subsection*{Convex Relaxation}
+Replace non-convex rank constraints by convex norm constraints. Nuclear norm: $||B||_* = \sum_i \sigma_i$. $rank(\mathbf{B}) \geq ||B||_*$ for $||B||_2 \leq 1$ (eigenvals $\leq 1$)\\
+Solveing $\mathbf{B}^* = shrink_\tau(\mathbf{A}) := argmin_\mathbf{B}(\frac{1}{2}\|\mathbf{A} - \mathbf{B}\|^2_F + \tau||B||_*)$ yields $\mathbf{B}^* = \mathbf{U}\mathbf{D}_\tau\mathbf{V}^\top$ where $\mathbf{A} = \mathbf{UDV}^\top $ and $\mathbf{D}_\tau = diag(max{0, \sigma_i - \tau})$
 
 \subsection*{Gradient Descent (or Deepest Descent)}
 \textbf{Gradient}: $\nabla f(\mathbf{x}) := \left( \frac{\partial f(\mathbf{x})}{\partial \mathbf{x}_1}, \ldots, \frac{\partial f(\mathbf{x})}{\partial \mathbf{x}_D} \right)^\top$
@@ -29,13 +30,15 @@ $f(x) = \frac{1}{N}\sum_{n=1}^{N}f_n(x)$\\
 1. init: $\mathbf{x}^{(0)} \in \mathbb{R}^D$\\
 2. for $t = 0 \ \text{to} \ \mathit{maxIter}$:\\
 3. sample $n \in_{u.a.r.} \{1, \ldots, N\}$\\
-4. $\mathbf{x}^{(t+1)} = \mathbf{x}^{(t)} - \gamma \nabla f_n(\mathbf{x}^{(t)})$, typically  $\gamma \approx \frac{1}{t}$.
+4. $\mathbf{x}^{(t+1)} = \mathbf{x}^{(t)} - \gamma \nabla f_n(\mathbf{x}^{(t)})$, typically  $\gamma \approx \frac{1}{t}$.\\
+SGD=$\nabla f_n$ s.t. $\mathbb{E}[\nabla f_n] = \nabla f$\\
+Conv to GD if $\sum_{t} \eta_t = \infty$, $\sum_{t}\eta_t^2<\infty$ e.g. $\eta_t = \frac{1}{t}$
 
-% \subsection*{Projected Gradient Descent (Constrained Opt.)}
-% minimize $f(x)$, $x \in Q$ (constraint).\\
-% \textbf{Project} $x$ onto $Q$: $P_Q(\mathbf{x}) = \argmin_{y \in Q} \|\mathbf{y} - \mathbf{x}\|$,\\
-% \textbf{Update}: $\mathbf{x}^{(t+1)} = P_Q[\mathbf{x}^{(t)} - \gamma \nabla f(\mathbf{x}^{(t)})]$,\\
-% $\mathbf{x}^{(t+1)}$ is unique if $Q$ convex.
+%\subsection*{Projected Gradient Descent (Constrained Opt.)}
+%minimize $f(x)$, $x \in Q$ (constraint).\\
+%\textbf{Project} $x$ onto $Q$: $P_Q(\mathbf{x}) = \argmin_{y \in Q} \|%\mathbf{y} - \mathbf{x}\|$,\\
+%\textbf{Update}: $\mathbf{x}^{(t+1)} = P_Q[\mathbf{x}^{(t)} - \gamma \nabla %f(\mathbf{x}^{(t)})]$,\\
+%$\mathbf{x}^{(t+1)}$ is unique if $Q$ convex.
 
 \subsection*{Lagrangian Multipliers}
 Minimize  $f(\mathbf{x})$ s.t. $g_i(\mathbf{x}) \leq 0,\ i = 1, .., m$ (\textbf{inequality constr.}) and $h_i(\mathbf{x}) = \mathbf{a}_i^\top \mathbf{x} - b_i = 0,\ i = 1, .., p$ (\textbf{equality constraint})
@@ -47,8 +50,6 @@ Minimize  $f(\mathbf{x})$ s.t. $g_i(\mathbf{x}) \leq 0,\ i = 1, .., m$ (\textbf{
 
 \subsection*{Convex Optimization}
 Def.: $\{(x,t)|x \in dom f, f(x) \leq t\}$, $f : \mathbb{R}^D \rightarrow \mathbb{R}$ is convex, if $dom\ f$ is a convex set, and if $\forall \mathbf{x}, \mathbf{y} \in dom\ f$, and for $0 \leq \alpha \leq 1$: $f(\alpha \mathbf{x} + (1 - \alpha)\mathbf{y}) \leq \alpha f(\mathbf{x}) + (1-\alpha)f(\mathbf{y})$ or iff Hessian is psd. local=global min, \textbf{Convergence}: $f(\mathbf{x}^{(t)}) - f(\mathbf{x}^*) \le \frac{c}{t}$.
-\textbf{Subgradient} $g \in \mathbb{R}^D$ of $f$ at $\mathbf{x}$: $f(\mathbf{y}) \geq f(\mathbf{x}) + g^\top(\mathbf{y}-\mathbf{x}) \ \forall \mathbf{y}$
+\textbf{Subgradient} $g \in \mathbb{R}^D$ of $f$ at $\mathbf{x}$: $f(\mathbf{y}) \geq f(\mathbf{x}) + g^\top(\mathbf{y}-\mathbf{x}) \ \forall \mathbf{y}$\\
+Convx set: set closed under cnvx operations. Inters of two set cnvx, union not.
 
-\subsection*{Convex Relaxation}
-Replace non-convex rank constraints by convex norm constraints.\\
-Nuclear norm: $||A||_* = \sum_i \sigma_i$

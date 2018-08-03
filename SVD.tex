@@ -10,7 +10,9 @@ $(\mathbf{D}^{-1})_{i,i} = \frac{1}{\mathbf{D}_{i, i}}$ (don't forget to transpo
 2. calculate eigenvalues of $\mathbf{A}^\top \mathbf{A}$, the square root of them, in descending order, are the diagonal elements of $\mathbf{D}$.\\
 3. calculate eigenvectors of $\mathbf{A}^\top \mathbf{A}$ using the eigenvalues resulting in the columns of $\mathbf{V}$.\\
 4. calculate the missing matrix: $\mathbf{U} = \mathbf{A} \mathbf{V} \mathbf{D}^{-1}$.\\
-5. normalize each column of $\mathbf{U}$ and $\mathbf{V}$.
+5. normalize each column of $\mathbf{U}$ and $\mathbf{V}$.\\
+
+With users on rows, movies on cols. $\mathbf{U}$ user to factor embeddings (contains "prototipical" movie on cols), $\mathbf{V}^\top$ items to factor (prot user on cols), $\mathbf{D}$ strength of factors (k singular values $<= rank(\mathbf{A})$
 
 \subsection*{Low-Rank approximation}
 Using only $K$ largest eigenvalues and corresponding eigenvectors. $\tilde{\mathbf{A}}_{i, j} = \sum_{k=1}^K \mathbf{U}_{i, k} \mathbf{D}_{k,k} \mathbf{V}_{j, k} = \sum_{k=1}^K \mathbf{U}_{i, k} \mathbf{D}_{k,k} (\mathbf{V}^\top)_{k, j}$.
