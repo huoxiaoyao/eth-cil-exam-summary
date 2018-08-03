@@ -2,13 +2,17 @@
 \section{Word Embeddings}
 \textbf{Distributional Model:}\\
 $p_\theta(w|w')$ = Pr[$w$ occurs in context of $w'$]\\
-\textbf{Log-likelihood:}\\
+\textbf{Log-likelihood:} $T$ \# of total words\\
 $L(\theta; \mathbf{w}) = \sum_{t=1}^T\sum_{\Delta \in I}{\log p_\theta(w^{(t+\Delta)}|w^{(t)})}$\\
-\textbf{Latent Vector Model:} $w \rightarrow (\mathbf{x}_w, b_w) \in \mathbb{R}^{D+1} \\p_{\theta}(w|w') = \frac{\exp[\langle \mathbf{x}_w,\mathbf{x}_{w'}\rangle + b_w]}{\sum_{v\in V}{\exp[\langle \mathbf{x}_v,\mathbf{x}_{w'}\rangle + b_v ]}}$ (soft-max).\\
+\textbf{Latent Vector Model:} $w \rightarrow (\mathbf{x}_w, b_w) \in \mathbb{R}^{D+1} \\p_{\theta}(w|w') = \frac{\exp[\langle \mathbf{x}_w,\mathbf{x}_{w'}\rangle + b_w]}{\sum_{v\in V}{\exp[\langle \mathbf{x}_v,\mathbf{x}_{w'}\rangle + b_v ]}}$ (soft-max). 
+$V$ vocabulary, $\theta$s the vectors themself\\
 \textbf{Modifications:}\\
 $\log p_{\theta}(w|w') = \langle  y_{w} , x_{w'} \rangle + b_w$,  word $y_w$, c'txt $x_{w'}$\\
-use GloVe objective\\
-negative sampling (logistic classification)
+
+\subsection*{Negative sampling}
+$L(\theta) = \sum_{(i,j) \in \Delta^+}{\log{\sigma(<x_i, y_j>)}} + \sum_{(i,j) \in \Delta^-}{\log {-\sigma(<x_i, y_j>)}}$ where $\Delta^+$ observed couples, $\Delta^-$ neg sampls from distr $P_n(i,j)$\\
+opt sol: $<x_i,j_i>^* = h_{i,j}^* = \log{\frac{P(w_i,w_j}{P_n(w_i,w_j)}} + log{\frac{\alpha}{1 - \alpha}}$ where $\alpha = \frac{1}{1+k}$ if $k=1$ \& $P_n(w_i,w_j)=P(w_i)P(w_j)$ then $<x_i,y_j> \approx PMI$ pointwise mutual info
+
 
 \subsection*{GloVe (Weighted Square Loss)}
 \textbf{Co-occurence Matrix:}\\
