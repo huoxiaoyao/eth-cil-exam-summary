@@ -2,8 +2,7 @@
 \section{Non-Negative Matrix Factorization}
 \textbf{Context Model:} $p(w | d) = \sum_{z=1}^K p(w | z) p(z | d)$\\
 \textbf{Conditional independence assumption ($*$):}\\
-$p(w|d) = \sum_z p(w,z|d) = \sum_z p(w|d,z)p(z|d) \stackrel{*}{=} \sum_z p(w|z)p(z|d)$\\
-\textbf{Symmetric parameterization:}\\
+$p(w|d) = \sum_z p(w,z|d) = \sum_z p(w|d,z)p(z|d) \stackrel{*}{=} \sum_z p(w|z)p(z|d)$\textbf{Symmetric parameterization:} 
 $p(w, d) = \sum_z p(z)p(w | z) p(d | z)$
 
 \subsection*{EM for pLSA}
