@@ -35,8 +35,8 @@ hard assignment vs soft. sherical clusters shapes vs covariance matrix. fast vs 
 K-means os a special case of GMM with covariances $\Sigma_j = \sigma^2 * I$. in the limit of $\sigma \rightarrow 0$, recover K-means.
 
 \subsection*{Model Order Selection (AIC / BIC for GMM)}
-Trade-off between data fit (i.e. likelihood $p(\mathbf{X} | \theta)$) and complexity (i.e. \# of free parameters $\kappa(\cdot)$). For choosing $K$:\\
-\textbf{Akaike Information Criterion}: $\operatorname{AIC}(\theta | \mathbf{X}) = -\log p_\theta(\mathbf{X}) + \kappa(\theta)$\\
-\textbf{Bayesian Information Criterion}: $\operatorname{BIC}(\theta | \mathbf{X}) = -\log p_\theta(\mathbf{X}) + \frac{1}{2} \kappa(\theta) \log N$\\
-\# of free params, fixed covariance matrix: $\kappa(\theta) = K \cdot D + (K - 1)$ ($K$: \# clusters, $D$: $\mathsf{dim}\text{(data)}=\mathsf{dim}(\mu_i)$, $K-1$: \# free clusters, full covariance matrix: $\kappa(\theta) = K(D + \frac{D(D+1)}{2}) + (K - 1)$.\\
+Trade-off between data fit (i.e. likelihood $p(\mathbf{X} | \theta)$) and complexity (i.e. \# of free parameters $\kappa(\cdot)$). For choosing $K$: 
+\textbf{Akaike Information Criterion}: $\operatorname{AIC}(\theta | \mathbf{X}) = -\log p_\theta(\mathbf{X}) + \kappa(\theta)$ 
+\textbf{Bayesian Information Criterion}: $\operatorname{BIC}(\theta | \mathbf{X}) = -\log p_\theta(\mathbf{X}) + \frac{1}{2} \kappa(\theta) \log N$ 
+\textbf{\# of free params}: fixed covariance matrix: $\kappa(\theta) = K \cdot D + (K - 1)$ ($K$: \# clusters, $D$: $\mathsf{dim}\text{(data)}=\mathsf{dim}(\mu_i)$, $K-1$: \# free clusters, full covariance matrix: $\kappa(\theta) = K(D + \frac{D(D+1)}{2}) + (K - 1)$.\\
 Compare AIC/BIC for different $K$ -- the smaller the better. BIC penalizes complexity more.
