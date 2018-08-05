@@ -10,7 +10,7 @@ $V$ vocabulary, $\theta$s the vectors themself\\
 $\log p_{\theta}(w|w') = \langle  y_{w} , x_{w'} \rangle + b_w$,  word $y_w$, c'txt $x_{w'}$\\
 
 \subsection*{Negative sampling}
-$L(\theta) = \sum_{(i,j) \in \Delta^+}{\log{\sigma(<x_i, y_j>)}} + \sum_{(i,j) \in \Delta^-}{\log {-\sigma(<x_i, y_j>)}}$ where $\Delta^+$ observed couples, $\Delta^-$ neg sampls from distr $P_n(i,j)$\\
+$L(\theta) = \sum_{(i,j) \in \Delta^+}{\log{\sigma(<x_i, y_j>)}} + \sum_{(i,j) \in \Delta^-}{\log {\sigma(-<x_i, y_j>)}}$ where $\Delta^+$ observed couples, $\Delta^-$ neg sampls from distr $P_n(i,j)$\\
 opt sol: $<x_i,j_i>^* = h_{i,j}^* = \log{\frac{P(w_i,w_j}{P_n(w_i,w_j)}} + log{\frac{\alpha}{1 - \alpha}}$ where $\alpha = \frac{1}{1+k}$ if $k=1$ \& $P_n(w_i,w_j)=P(w_i)P(w_j)$ then $<x_i,y_j> \approx PMI$ pointwise mutual info
 
 
